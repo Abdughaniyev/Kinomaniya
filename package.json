@@ -5,8 +5,9 @@
   "main": "dist/main.js",
   "scripts": {
     "start": "node dist/main.js",
-    "build": "tsc -p tsconfig.json",
     "start:dev": "nest start --watch",
+    "start:prod": "node dist/main.js",
+    "build": "tsc -p tsconfig.json",
     "prestart": "npm run build"
   },
   "dependencies": {
