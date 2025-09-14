@@ -490,7 +490,14 @@ export class BotService implements OnModuleInit, OnModuleDestroy {
 
         // ===== Start command =====
         this.bot.start(async (ctx) => {
-            if (!(await this.forceJoinCheck(ctx))) return; // ⬅️ check subscription first
+            if (!(await this.forceJoinCheck(ctx))) return;
+
+            const tgId = ctx.from.id.toString();
+            const username = ctx.from.username || ctx.from.first_name;
+
+            // ✅ safe save
+            await this.userService.saveIfNotExists(tgId, username);
+
             await ctx.reply('👋 Xush kelibsiz! Kino kodini yuboring yoki /help buyrug‘idan foydalaning.');
         });
     }

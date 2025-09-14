@@ -11,15 +11,16 @@ export class UserService {
         private repo: Repository<User>,
     ) { }
 
+
+
+
     async saveIfNotExists(telegramId: string, username?: string) {
         let user = await this.repo.findOne({ where: { telegramId } });
         if (!user) {
-            user = this.repo.create({
-                telegramId,
-                username,
-            });
+            user = this.repo.create({ telegramId, username });
+            return this.repo.save(user); // only save new user
         }
-        return this.repo.save(user);
+        return user; // just return existing user
     }
 
     async remove(telegramId: string) {
