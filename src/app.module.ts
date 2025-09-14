@@ -16,6 +16,7 @@ dotenv.config()
         ConfigModule.forRoot({ isGlobal: true }),
         TypeOrmModule.forRoot({
             type: 'postgres',
+            url: process.env.DATABASE_URL, // FOR RAILWAY
             host: process.env.DB_HOST,
             port: Number(process.env.DB_PORT || 5432),
             username: String(process.env.DB_USER),
@@ -24,10 +25,10 @@ dotenv.config()
             autoLoadEntities: true,
             synchronize: true,
         }),
-         UserModule,
-        
+        UserModule,
+
         TypeOrmModule.forFeature([Movie, Watchlist]),
-        
+
     ],
     providers: [BotService, MoviesService, WatchlistService],
 
